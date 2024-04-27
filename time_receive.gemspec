@@ -12,9 +12,13 @@ Gem::Specification.new do |spec|
   spec.description = "The time_receive gem provides a way to ... (brief explanation of what the gem does).
                       It includes features such as ... (list some key features).
                       This gem is useful for ... (describe who would benefit from using the gem and why)."
-  spec.homepage = "https://github.com/bodrovis/lokalise_rails"
+  spec.homepage = "https://github.com/MatveySviadysh/time_receive"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.0.0"
+
+
+  spec.metadata["homepage_uri"] = spec.homepage
+  spec.metadata["source_code_uri"] = spec.homepage
 
   gemspec = File.basename(__FILE__)
   spec.files = IO.popen(%w[git ls-files -z], chdir: __dir__, err: IO::NULL) do |ls|
