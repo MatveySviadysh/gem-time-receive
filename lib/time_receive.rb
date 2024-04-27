@@ -11,7 +11,7 @@ module TimeReceive
 
     def format(time)
       raise TimeReceiveError, "Invalid time: #{time}" unless time.is_a?(Time)
-      time.strftime(@format_string) # Используйте strftime для форматирования времени
+      time.strftime(@format_string)
     end
   end
 
@@ -27,6 +27,40 @@ module TimeReceive
       rescue ArgumentError
         raise TimeReceiveError, "Invalid time string: #{time_string}"
       end
+    end
+
+    def timer(user_time, &block)
+      raise ArgumentError, "Invalid user_time: #{user_time}" unless user_time.is_a?(Time)
+
+      remaining_seconds = (user_time - Time.now).to_i
+
+      loop do
+        remaining_time_str = format_remaining_time(remaining_seconds)
+
+        puts "Time until deadline: #{remaining_time_str}"
+
+        sleep 1/1.9
+
+        remaining_seconds -= 1
+
+        break if remaining_seconds <= 0
+      end
+
+      block.call if block_given?
+    end
+
+
+    def format_remaining_time(remaining_seconds)
+      hours = remaining_seconds / 3600
+      minutes = (remaining_seconds % 3600) / 60
+      seconds = remaining_seconds % 60
+
+      # Format the string with leading zeros if necessary
+      hours_str = hours.to_s.rjust(2, '0')
+      minutes_str = minutes.to_s.rjust(2, '0')
+      seconds_str = seconds.to_s.rjust(2, '0')
+
+      "#{hours_str}:#{minutes_str}:#{seconds_str}"
     end
   end
 
