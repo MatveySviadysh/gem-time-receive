@@ -1,5 +1,7 @@
-require 'date'
-require 'time'
+# frozen_string_literal: true
+
+require "date"
+require "time"
 
 module TimeReceive
   class TimeReceiveError < StandardError; end
@@ -11,22 +13,21 @@ module TimeReceive
 
     def format(time)
       raise TimeReceiveError, "Invalid time: #{time}" unless time.is_a?(Time)
+
       time.strftime(@format_string)
     end
   end
 
   module ClassMethods
     def now(format_string = nil)
-      formatter = format_string ? TimeFormatter.new(format_string) : TimeFormatter.new("%Y-%m-%d %H:%M:%S")
+      formatter = TimeFormatter.new(format_string || "%Y-%m-%d %H:%M:%S")
       formatter.format(Time.now)
     end
 
     def parse_time(time_string, format_string)
-      begin
-        Time.strptime(time_string, format_string)
-      rescue ArgumentError
-        raise TimeReceiveError, "Invalid time string: #{time_string}"
-      end
+      Time.strptime(time_string, format_string)
+    rescue ArgumentError
+      raise TimeReceiveError, "Invalid time string: #{time_string}"
     end
 
     def timer(user_time, &block)
@@ -39,7 +40,7 @@ module TimeReceive
 
         puts "Time until deadline: #{remaining_time_str}"
 
-        sleep 1/1.9
+        sleep 1 / 1.9
 
         remaining_seconds -= 1
 
@@ -54,9 +55,9 @@ module TimeReceive
       minutes = (remaining_seconds % 3600) / 60
       seconds = remaining_seconds % 60
 
-      hours_str = hours.to_s.rjust(2, '0')
-      minutes_str = minutes.to_s.rjust(2, '0')
-      seconds_str = seconds.to_s.rjust(2, '0')
+      hours_str = hours.to_s.rjust(2, "0")
+      minutes_str = minutes.to_s.rjust(2, "0")
+      seconds_str = seconds.to_s.rjust(2, "0")
 
       "#{hours_str}:#{minutes_str}:#{seconds_str}"
     end
@@ -67,6 +68,7 @@ module TimeReceive
 
     def days_until(target_date)
       raise ArgumentError, "Invalid target_date: #{target_date}" unless target_date.is_a?(Date)
+
       (target_date - Date.today).to_i
     end
 
@@ -79,7 +81,7 @@ module TimeReceive
       when :minutes
         time + 60
       when :days
-        time + 86400
+        time + 86_400
       else
         raise ArgumentError, "Unsupported period: #{period}"
       end

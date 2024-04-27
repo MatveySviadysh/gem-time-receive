@@ -10,17 +10,17 @@ gem "rake", "~> 13.0"
 gem "rspec", "~> 3.0"
 
 gem "rubocop", "~> 1.21"
-gem 'rubocop-performance'
-gem 'rubocop-rspec'
+gem "rubocop-performance"
+gem "rubocop-rspec"
 
-gem 'codecov'
+gem "codecov"
 
-gem 'rails'
+gem "rails"
 
-gem 'simplecov'
+gem "simplecov"
 
-gem 'rspec-rails'
+gem "rspec-rails"
 
 group :test do
-  gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+  gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 end
