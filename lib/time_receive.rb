@@ -49,20 +49,53 @@ module TimeReceive
       block.call if block_given?
     end
 
-
     def format_remaining_time(remaining_seconds)
       hours = remaining_seconds / 3600
       minutes = (remaining_seconds % 3600) / 60
       seconds = remaining_seconds % 60
 
-      # Format the string with leading zeros if necessary
       hours_str = hours.to_s.rjust(2, '0')
       minutes_str = minutes.to_s.rjust(2, '0')
       seconds_str = seconds.to_s.rjust(2, '0')
 
       "#{hours_str}:#{minutes_str}:#{seconds_str}"
     end
+
+    def today?
+      Date.today == Time.now.to_date
+    end
+
+    def days_until(target_date)
+      raise ArgumentError, "Invalid target_date: #{target_date}" unless target_date.is_a?(Date)
+      (target_date - Date.today).to_i
+    end
+
+    def add_time_period(time, period)
+      raise ArgumentError, "Invalid time: #{time}" unless time.is_a?(Time)
+
+      case period
+      when :hours
+        time + 3600
+      when :minutes
+        time + 60
+      when :days
+        time + 86400
+      else
+        raise ArgumentError, "Unsupported period: #{period}"
+      end
+    end
+
+    def calculate_elapsed_time(start_time, end_time)
+      raise ArgumentError, "Invalid start_time: #{start_time}" unless start_time.is_a?(Time)
+      raise ArgumentError, "Invalid end_time: #{end_time}" unless end_time.is_a?(Time)
+
+      elapsed_seconds = (end_time - start_time).to_i
+      hours = elapsed_seconds / 3600
+      minutes = (elapsed_seconds % 3600) / 60
+
+      "#{hours} hours and #{minutes} minutes"
+    end
   end
 
-  self.extend ClassMethods
+  extend ClassMethods
 end
