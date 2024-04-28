@@ -1,39 +1,96 @@
-# TimeReceive
 
-TODO: Delete this and the text below, and describe your gem
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/time_receive`. To experiment with that code, run `bin/console` for an interactive prompt.
 
-## Installation
+**time_receive**
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
+This Ruby gem provides a collection of utility methods for working with time-related tasks, including formatting, parsing, countdown timers, and date calculations.
 
-Install the gem and add to the application's Gemfile by executing:
+**Features:**
 
-    $ bundle add UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+* Format time objects into various string representations using custom formats.
+* Parse time strings into Time objects using a specified format.
+* Create countdown timers that display the remaining time until a user-defined deadline.
+* Check if a time falls on the current date.
+* Calculate the number of days until a target date.
+* Add specific time periods (hours, minutes, or days) to a Time object.
+* Calculate the elapsed time between two Time objects.
 
-If bundler is not being used to manage dependencies, install the gem by executing:
+**Installation**
 
-    $ gem install UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+1. Add the gem to your Gemfile:
 
-## Usage
+   ```ruby
+   gem 'time_receive'
+   ```
 
-TODO: Write usage instructions here
+2. Install the gem:
 
-## Development
+   ```bash
+   bundle install
+   ```
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+**Usage**
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+1. Require the `time_receive` module in your Ruby code:
 
-## Contributing
+   ```ruby
+   require 'time_receive'
+   ```
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/time_receive. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/time_receive/blob/master/CODE_OF_CONDUCT.md).
+2. Use the provided methods:
 
-## License
+   **Formatting Time:**
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+   ```ruby
+   formatted_time = TimeReceive.now("%d/%m/%Y %H:%M")  # Output: 28/04/2024 00:58
+   ```
 
-## Code of Conduct
+   **Parsing Time String:**
 
-Everyone interacting in the TimeReceive project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/time_receive/blob/master/CODE_OF_CONDUCT.md).
+   ```ruby
+   time_object = TimeReceive.parse_time("2024-05-09 10:00:00", "%Y-%m-%d %H:%M:%S")
+   ```
+
+   **Countdown Timer:**
+
+   ```ruby
+   deadline = Time.now + 60 * 60  # One hour from now
+   TimeReceive.timer(deadline) do
+     puts "Time is up!"
+   end
+   ```
+
+   **Other Methods:**
+
+   See the code documentation for details on `today?`, `days_until`, `add_time_period`, and `calculate_elapsed_time`.
+
+**Error Handling**
+
+`TimeReceive` raises `TimeReceiveError` if invalid arguments are provided to methods. Ensure you pass appropriate types (e.g., `Time` objects, `Date` objects, valid time strings, and supported time periods).
+
+**Contributing**
+
+We welcome contributions to this project! Feel free to fork the repository, make changes, and submit a pull request.
+
+**License**
+
+This gem is licensed under the MIT License. See the LICENSE file for details.
+```
+
+**Explanation:**
+
+* **Clear and concise title:** The title "time_receive" is straightforward.
+* **Informative description:** The description explains the gem's purpose and key features.
+* **Detailed installation steps:** The guide covers adding the gem to the Gemfile and running `bundle install`.
+* **Comprehensive usage examples:** The examples demonstrate various functionalities with clear explanations.
+* **Error handling guidance:** Users are informed about potential errors and how to avoid them.
+* **Contribution guidelines (optional):** If you plan to accept contributions, include instructions.
+* **License information:** Specify the license under which the gem is distributed.
+
+**Additional Tips:**
+
+* Consider adding a badge for the Ruby version supported by the gem.
+* Include links to the source code repository (if applicable) and any relevant documentation.
+* Maintain up-to-date documentation as the gem evolves.
+
+I hope this enhanced README file serves you well!
